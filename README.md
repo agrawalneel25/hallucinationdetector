@@ -4,7 +4,7 @@ A lightweight, pure-NumPy approach to detecting hallucinated claims in generated
 
 ## The Problem
 
-Language models sometimes generate statements that are not supported by any provided context — this is called hallucination. A simple but practical detection strategy is **retrieval grounding**: score each generated claim against a reference document and flag claims that are poorly supported.
+A simple but practical detection strategy is **retrieval grounding**: score each generated claim against a reference document and flag claims that are poorly supported.
 
 ## Approach
 
@@ -14,7 +14,9 @@ Given a reference document and a set of claims, we:
 2. Score each claim by its cosine similarity to the reference vector.
 3. Flag claims below a similarity threshold as potential hallucinations.
 
-This is a **lexical grounding** approach — it detects when a claim uses vocabulary that is absent or rare in the reference. It will miss hallucinations that are lexically consistent but semantically wrong, which is a known limitation.
+This is a **lexical grounding** approach - it detects when a claim uses vocabulary that is absent or rare in the reference. 
+
+However, it will miss hallucinations that are lexically consistent but semantically wrong.
 
 ## TF-IDF
 
@@ -28,7 +30,7 @@ TF-IDF    = TF * IDF
 
 Each document vector is L2-normalised, so cosine similarity reduces to a dot product.
 
-IDF is fitted on the reference document only. Claims are projected into the same space using the pre-fitted IDF — they are strictly unseen at fit time.
+IDF is fitted on the reference document. Claims are projected into the same space using the pre-fitted IDF - they are strictly unseen at fit time.
 
 ## Structure
 
@@ -52,12 +54,14 @@ No dependencies beyond NumPy and the standard library.
 
 ## Limitations
 
-- Lexical only — misses hallucinations that reuse reference vocabulary with wrong facts (e.g. swapping a date).
+- Lexical only - misses hallucinations that reuse reference vocabulary with wrong facts (e.g. swapping a date).
 - Threshold is fixed; a real system would tune it on a validation set.
 - Short claims against short references produce low absolute similarity scores regardless of groundedness. Better suited for sentence-level claims against paragraph-length references.
 
 ## Extensions
 
-- Replace TF-IDF with dense embeddings (e.g. from a trained word2vec model) for semantic rather than lexical similarity.
+- Replace TF-IDF with dense embeddings
+- (e.g. from a trained word2vec model - this is something I could combine with another application I made for the JetBrains internship!)
+  for semantic rather than lexical similarity.
 - Use sentence segmentation to automatically split generated output into claims before scoring.
 - Add a calibration step to convert raw scores into calibrated probabilities.
