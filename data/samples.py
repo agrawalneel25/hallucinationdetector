@@ -1,13 +1,9 @@
-"""
-Sample reference documents and labelled claims for hallucination detection.
-
-Each entry in EXAMPLES is (reference, claims) where claims are (text, is_grounded).
-is_grounded=True  means the claim is supported by the reference.
-is_grounded=False means the claim is hallucinated (not supported).
-
-Hallucinated claims are designed to use vocabulary largely absent from the
-reference — the kind of hallucination a TF-IDF approach can realistically catch.
-"""
+# Reference documents with labelled claims.
+# True  = claim is supported by the reference (grounded)
+# False = claim is not supported (hallucinated)
+#
+# Hallucinated claims use vocabulary largely absent from the reference
+# so the TF-IDF approach has a realistic chance of catching them.
 
 EXAMPLES = [
     {
@@ -20,11 +16,9 @@ EXAMPLES = [
             exposure to radiation. She discovered the elements polonium and radium.
         """,
         "claims": [
-            # grounded — vocabulary strongly present in the reference
             ("Marie Curie researched radioactivity and was a physicist.",          True),
             ("She received Nobel Prizes in Physics and Chemistry.",                True),
             ("Curie discovered the elements polonium and radium.",                 True),
-            # hallucinated — vocabulary largely absent from the reference
             ("She was an accomplished pianist who performed across Europe.",       False),
             ("Curie founded a school of philosophy in Berlin.",                    False),
             ("She developed a new theory of gravity and stellar motion.",          False),
@@ -39,11 +33,9 @@ EXAMPLES = [
             The language is widely used in data science, web development, and automation.
         """,
         "claims": [
-            # grounded
             ("Python was created by Guido van Rossum.",                           True),
             ("Python supports object-oriented and functional programming.",        True),
             ("The language is used in data science and web development.",          True),
-            # hallucinated
             ("Python compiles to native machine code for maximum performance.",   False),
             ("It was originally designed for embedded microcontroller firmware.",  False),
             ("Python requires explicit memory allocation and pointer management.", False),

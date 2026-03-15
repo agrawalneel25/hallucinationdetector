@@ -1,13 +1,7 @@
-"""
-Basic text preprocessing: lowercase, tokenise, remove stopwords.
-Kept minimal — the goal is clean tokens, not perfect NLP.
-"""
-
 import re
 from typing import List
 
-# Common words that carry little factual signal.
-# Keeping this list short and explicit rather than importing nltk.
+# not using nltk — keeping it self-contained
 STOPWORDS = {
     "a", "an", "the", "and", "or", "but", "in", "on", "at", "to", "for",
     "of", "with", "by", "from", "is", "was", "are", "were", "be", "been",
@@ -17,7 +11,6 @@ STOPWORDS = {
 
 
 def tokenise(text: str) -> List[str]:
-    """Lowercase, strip punctuation, split on whitespace, drop stopwords."""
     text = text.lower()
     text = re.sub(r"[^a-z\s]", " ", text)
     tokens = text.split()
@@ -25,7 +18,6 @@ def tokenise(text: str) -> List[str]:
 
 
 def build_vocabulary(documents: List[str]) -> List[str]:
-    """Return a sorted list of unique tokens across all documents."""
     vocab = set()
     for doc in documents:
         vocab.update(tokenise(doc))

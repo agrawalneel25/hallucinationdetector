@@ -14,7 +14,7 @@ Given a reference document and a set of claims, we:
 2. Score each claim by its cosine similarity to the reference vector.
 3. Flag claims below a similarity threshold as potential hallucinations.
 
-This is a **lexical grounding** approach - it detects when a claim uses vocabulary that is absent or rare in the reference. 
+This is a **lexical grounding** approach - it detects when a claim uses vocabulary that is absent or rare in the reference.
 
 However, it will miss hallucinations that are lexically consistent but semantically wrong.
 
@@ -23,7 +23,7 @@ However, it will miss hallucinations that are lexically consistent but semantica
 For a term `t` in document `d` across a corpus of `N` documents:
 
 ```
-TF(t, d)  = count(t in d) / total tokens in d
+TF(t, d)  = count(t in d) / len(d)
 IDF(t)    = log((1 + N) / (1 + df(t))) + 1     # smooth IDF
 TF-IDF    = TF * IDF
 ```
